@@ -1,0 +1,710 @@
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+  <link href="stylesheet.css" rel="stylesheet" type="text/css">
+  <link href="roboto.css" rel="stylesheet" type="text/css">
+  <link href="roboto_mono.css" rel="stylesheet" type="text/css">
+  <!--link href="http://fonts.cdnfonts.com/css/roboto" rel="stylesheet" type="text/css"-->
+
+  <title>GPIS PR</title>
+  </script>
+</head>
+
+<body>
+  <p align="center">2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</p>
+
+  <h1>6D Pose Estimation for Flexible Production with Small Lot Sizes based
+    on CAD Models using Gaussian Process Implicit Surfaces</h1>
+  <p align="center">Jianjie Lin, Markus Rickert, Alois Knoll<br />Robotics, Artificial Intelligence and Real-time
+    Systems<br />Department of Informatics, Technische Universität München</p>
+  <p align="center"><a class="chip" href="https://doi.org/10.1109/IROS45743.2020.9341189">DOI</a> <a class="chip" href="https://mediatum.ub.tum.de/doc/1555279/cr7t1w2a65qkekhn3em4lm75c.gpis-gr.pdf">preprint</a>
+    <a class="chip"
+      href="bibtex.txt">BibTeX</a> <a class="chip" href="https://github.com/LinJianjie/gpisPR.git">Code</a></p>
+  <h2>Abstract</h2>
+  <p style="font-size:20px;">
+    We propose a surface-to-surface (S2S) point registration algorithm by exploiting the Gaussian Process Implicit Surfaces for partially overlapping 3D surfaces to estimate the
+    6D pose transformation. Unlike traditional approaches, that
+    separate the corresponding search and update steps in the inner
+    loop, we formulate the point registration as a nonlinear non-
+    constraints optimization problem which does not explicitly use
+    any corresponding points between two point sets. According
+    to the implicit function theorem, we form one point set as a
+    Gaussian Process Implicit Surfaces utilizing the signed distance
+    function, which implicitly creates three manifolds. Points on
+    the same manifold share the same function value, indicated as {𝟏, 𝟎, −𝟏}. The problem is thus converted into finding a rigid
+    transformation that minimizes the inherent function value. This
+    can be solved by using a Gauss-Newton (GN) or Levenberg-
+    Marquardt (LM) solver. In the case of a partially overlapping
+    3D surface, the Fast Point Feature Histogram (FPFH) algorithm
+    is applied to both point sets and a Principal Component Anal-
+    ysis (PCA) is performed on the result. Based on this, the initial
+    transformation can then be computed. We conduct experiments
+    on multiple point sets to evaluate the effectiveness of our
+    proposed approach against existing state-of-the-art methods.</p>
+
+  <h2>Qualitative comparison on Standard Bunny</h2>
+		<figure>
+			<img src="./images/Standford_Bunny.png">
+      <figcaption>Stanford Bunny together with alignment results of selected algorithms for (a)--(f) 50° rotation around the y axis and small translation, (g)--(i) 180° rotation around the z axis with translation set to zero.
+      </figcaption>
+		</figure>	
+  <h2>Qualitative comparison</h2>
+  <p style="font-size:20px;">Benchmark results for all algorithms on four different point sets with three levels of Gaussian noise and three different overlap factors. The best RMSE value &epsilon; for each configuration is highlighted in bold</p>
+    <div class="table">
+    <table >
+      <tr>
+        <th  colspan="2"></th>
+        <th   colspan="6">noise=0.00000</th>
+        <th   colspan="6">noise=0.00025</th>
+        <th   colspan="6">noise=0.00050</th>
+      </tr>
+      <tr>
+        <td ></td>
+        <td ></td>
+        <td  align="center" colspan="2">1.00</td>
+        <td  align="center" colspan="2">0.85</td>
+        <td  align="center" colspan="2">0.65</td>
+        <td  align="center" colspan="2">1.00</td>
+        <td  align="center" colspan="2">0.85</td>
+        <td  align="center" colspan="2">0.65</td>
+        <td  align="center" colspan="2">1.00</td>
+        <td  align="center" colspan="2">0.85</td>
+        <td  align="center" colspan="2">0.65</td>
+      </tr>
+      <tr>
+        <td ></td>
+        <td ></td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+        <td align="center">&epsilon;</td>
+        <td align="center">t</td>
+      </tr>
+      <tr>
+        <td  class="rotate" align="center" rowspan="7"> <div>Bunny</div></td>
+        <td style="font-size:15px;">PCL-ICP</td>
+          <td align="right">0.080</td>
+          <td align="right">0.55</td>
+          <td align="right">0.090</td>
+          <td align="right">0.39</td>
+          <td align="right">0.070</td>
+          <td align="right">0.33</td>
+          <td align="right">0.050</td>
+          <td align="right">0.42</td>
+          <td align="right">0.080</td>
+          <td align="right">0.64</td>
+          <td align="right">0.050</td>
+          <td align="right">0.31</td>
+          <td align="right">0.070</td>
+          <td align="right">0.38</td>
+          <td align="right">0.110</td>
+          <td align="right">0.62</td>
+          <td align="right">0.070</td>
+          <td align="right">0.31</td>
+      </tr>
+      <tr>
+      <td style="font-size:15px;",class="headcol">GoICP</td>
+      <td align="right">0.110</td>
+      <td align="right">20.29</td>
+      <td align="right">0.110</td>
+      <td align="right">20.06</td>
+      <td align="right">0.080</td>
+      <td align="right">19.98</td>
+      <td align="right">0.050</td>
+      <td align="right">20.15</td>
+      <td align="right">0.020</td>
+      <td align="right">20.06</td>
+      <td align="right">0.060</td>
+      <td align="right">20.17</td>
+      <td align="right">0.090</td>
+      <td align="right">20.08</td>
+      <td align="right">0.100</td>
+      <td align="right">20.07</td>
+      <td align="right">0.050</td>
+      <td align="right">20.13</td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GoICPT</td>
+        <td align="right">0.100</td>
+        <td align="right">21.49</td>
+        <td align="right">0.110</td>
+        <td align="right">21.47</td>
+        <td align="right">0.100</td>
+        <td align="right">21.36</td>
+        <td align="right">0.110</td>
+        <td align="right">21.51</td>
+        <td align="right">0.100</td>
+        <td align="right">21.72</td>
+        <td align="right">0.100</td>
+        <td align="right">21.43</td>
+        <td align="right">0.100</td>
+        <td align="right">21.43</td>
+        <td align="right">0.110</td>
+        <td align="right">21.68</td>
+        <td align="right">0.100</td>
+        <td align="right">21.43</td>
+      </tr>
+      <tr>
+      <td style="font-size:15px;",class="headcol">SAC-IA-ICP</td>
+      <td align="right">0.001</td>
+      <td align="right">6.14	</td>
+      <td align="right">0.002</td>
+      <td align="right">5.63	</td>
+      <td align="right">0.010</td>
+      <td align="right">7.12</td>
+      <td align="right"><strong>0.001</strong></td>
+      <td align="right">6.63	</td>
+      <td align="right">0.002</td>
+      <td align="right">6.05	</td>
+      <td align="right">0.010</td>
+      <td align="right">8.24</td>
+      <td align="right"><strong>0.001</strong></td>
+      <td align="right">7.02</td>
+      <td align="right">0.003</td>
+      <td align="right">6.41</td>
+      <td align="right">0.011</td>
+      <td align="right">7.92 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">Gl.RANSAC</td>
+        <td align="right" > 0.001 </td>
+        <td align="right"> 1.599 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 1.678 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 2.312 </td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 1.699 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 1.839 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 1.948 </td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 1.710 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 1.872 </td>
+        <td align="right"> 0.005 </td>
+        <td align="right"> 2.348 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">FGR</td>
+<td align="right"> 0.017 </td>
+<td align="right"> 0.400 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 0.370 </td>
+<td align="right"> 0.017 </td>
+<td align="right"> 0.322 </td>
+<td align="right"> 0.004 </td>
+<td align="right"> 0.385 </td>
+<td align="right"> 0.007 </td>
+<td align="right"> 0.373 </td>
+<td align="right"> 0.020 </td>
+<td align="right"> 0.348 </td>
+<td align="right"> 0.004 </td>
+<td align="right"> 0.412 </td>
+<td align="right"> 0.007 </td>
+<td align="right"> 0.388 </td>
+<td align="right"> 0.015 </td>
+<td align="right"> 0.348 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">GPIS-S2SPR</td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.568 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.486 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.465 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.531 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.609 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.507 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 0.466 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.561 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.690 </td>
+      </tr>
+      <tr>
+        <td  class="rotate" align="center" rowspan="7"> <div>Suzanne</div></td>
+        <td style="font-size:15px;",class="headcol">PCL-ICP</td>
+<td align="right"> 0.134 </td>
+<td align="right" > 0.810 </td>
+<td align="right" > 0.108 </td>
+<td align="right" > 0.814 </td>
+<td align="right" > 0.116 </td>
+<td align="right" > 0.656 </td>
+<td align="right" > 0.049 </td>
+<td align="right" > 0.587 </td>
+<td align="right" > 0.127 </td>
+<td align="right" > 1.264 </td>
+<td align="right" > 0.095 </td>
+<td align="right" > 0.650 </td>
+<td align="right" > 0.131 </td>
+<td align="right"> 0.934 </td>
+<td align="right"> 0.115 </td>
+<td align="right"> 0.619 </td>
+<td align="right"> 0.106 </td>
+<td align="right"> 0.902 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">GoICP</td>
+<td align="right"> 0.134 </td>
+<td align="right"> 0.810 </td>
+<td align="right"> 0.108 </td>
+<td align="right"> 0.814 </td>
+<td align="right"> 0.116 </td>
+<td align="right"> 0.656 </td>
+<td align="right"> 0.049 </td>
+<td align="right"> 0.587 </td>
+<td align="right"> 0.127 </td>
+<td align="right"> 1.264 </td>
+<td align="right"> 0.095 </td>
+<td align="right"> 0.650 </td>
+<td align="right"> 0.131 </td>
+<td align="right"> 0.934 </td>
+<td align="right"> 0.115 </td>
+<td align="right"> 0.619 </td>
+<td align="right"> 0.106 </td>
+<td align="right"> 0.902 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">GoICPT</td>
+<td align="right"> 0.092 </td>
+<td align="right"> 23.150 </td>
+<td align="right"> 0.059 </td>
+<td align="right"> 21.502 </td>
+<td align="right"> 0.084 </td>
+<td align="right"> 21.532 </td>
+<td align="right"> 0.079 </td>
+<td align="right"> 21.584 </td>
+<td align="right"> 0.071 </td>
+<td align="right"> 21.679 </td>
+<td align="right"> 0.097 </td>
+<td align="right"> 21.655 </td>
+<td align="right"> 0.045 </td>
+<td align="right"> 21.517 </td>
+<td align="right"> 0.091 </td>
+<td align="right"> 21.569 </td>
+<td align="right"> 0.062 </td>
+<td align="right"> 21.473 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">SAC-IA-ICP</td>
+<td align="right"> 0.092 </td>
+<td align="right"> 23.150 </td>
+<td align="right"> 0.059 </td>
+<td align="right"> 21.502 </td>
+<td align="right"> 0.084 </td>
+<td align="right"> 21.532 </td>
+<td align="right"> 0.079 </td>
+<td align="right"> 21.584 </td>
+<td align="right"> 0.071 </td>
+<td align="right"> 21.679 </td>
+<td align="right"> 0.097 </td>
+<td align="right"> 21.655 </td>
+<td align="right"> 0.045 </td>
+<td align="right"> 21.517 </td>
+<td align="right"> 0.091 </td>
+<td align="right"> 21.569 </td>
+<td align="right"> 0.062 </td>
+<td align="right"> 21.473 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">Gl.RANSAC</td>
+<td align="right"> 0.014 </td>
+<td align="right"> 1.663 </td>
+<td align="right"> 0.018 </td>
+<td align="right"> 1.724 </td>
+<td align="right"> 0.040 </td>
+<td align="right"> 2.002 </td>
+<td align="right"> 0.016 </td>
+<td align="right"> 1.829 </td>
+<td align="right"> 0.011 </td>
+<td align="right"> 1.808 </td>
+<td align="right"> 0.039 </td>
+<td align="right"> 2.277 </td>
+<td align="right"> 0.013 </td>
+<td align="right"> 1.865 </td>
+<td align="right"> 0.025 </td>
+<td align="right"> 1.912 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 2.711 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">FGR</td>
+<td align="right"> 0.049 </td>
+<td align="right"> 0.583 </td>
+<td align="right"> 0.039 </td>
+<td align="right"> 0.574 </td>
+<td align="right"> 0.060 </td>
+<td align="right"> 0.512 </td>
+<td align="right"> 0.070 </td>
+<td align="right"> 0.628 </td>
+<td align="right"> 0.049 </td>
+<td align="right"> 0.602 </td>
+<td align="right"> 0.061 </td>
+<td align="right"> 0.532 </td>
+<td align="right"> 0.046 </td>
+<td align="right"> 0.697 </td>
+<td align="right"> 0.071 </td>
+<td align="right"> 0.641 </td>
+<td align="right"> 0.052 </td>
+<td align="right"> 0.572 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">GPIS-S2SPR</td>
+<td align="right"> 0.049 </td>
+<td align="right"> 0.583 </td>
+<td align="right"> 0.039 </td>
+<td align="right"> 0.574 </td>
+<td align="right"> 0.060 </td>
+<td align="right"> 0.512 </td>
+<td align="right"> 0.070 </td>
+<td align="right"> 0.628 </td>
+<td align="right"> 0.049 </td>
+<td align="right"> 0.602 </td>
+<td align="right"> 0.061 </td>
+<td align="right"> 0.532 </td>
+<td align="right"> 0.046 </td>
+<td align="right"> 0.697 </td>
+<td align="right"> 0.071 </td>
+<td align="right"> 0.641 </td>
+<td align="right"> 0.052 </td>
+<td align="right"> 0.572 </td>
+      </tr>
+      <tr>
+        <td  class="rotate" align="center" rowspan="7"> <div>Dragon</div></td>
+        <td style="font-size:15px;",class="headcol">PCL-ICP</td>
+<td align="right"> 0.087 </td>
+<td align="right"> 0.487 </td>
+<td align="right"> 0.100 </td>
+<td align="right"> 0.317 </td>
+<td align="right"> 0.079 </td>
+<td align="right"> 0.445 </td>
+<td align="right"> 0.090 </td>
+<td align="right"> 0.229 </td>
+<td align="right"> 0.065 </td>
+<td align="right"> 0.346 </td>
+<td align="right"> 0.096 </td>
+<td align="right"> 0.352 </td>
+<td align="right"> 0.071 </td>
+<td align="right"> 0.502 </td>
+<td align="right"> 0.082 </td>
+<td align="right"> 0.465 </td>
+<td align="right"> 0.101 </td>
+<td align="right"> 0.382 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GoICP</td>
+<td align="right"> 0.017 </td>
+<td align="right"> 21.581 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 21.736 </td>
+<td align="right"> 0.018 </td>
+<td align="right"> 21.416 </td>
+<td align="right"> 0.034 </td>
+<td align="right"> 21.490 </td>
+<td align="right"> 0.035 </td>
+<td align="right"> 21.697 </td>
+<td align="right"> 0.021 </td>
+<td align="right"> 21.497 </td>
+<td align="right"> 0.018 </td>
+<td align="right"> 21.474 </td>
+<td align="right"> 0.053 </td>
+<td align="right"> 21.467 </td>
+<td align="right"> 0.033 </td>
+<td align="right"> 21.562 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GoICPT</td>
+<td align="right"> 0.022 </td>
+<td align="right"> 21.388 </td>
+<td align="right"> 0.014 </td>
+<td align="right"> 21.370 </td>
+<td align="right"> 0.021 </td>
+<td align="right"> 20.017 </td>
+<td align="right"> 0.011 </td>
+<td align="right"> 19.945 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 19.976 </td>
+<td align="right"> 0.084 </td>
+<td align="right"> 20.054 </td>
+<td align="right"> 0.013 </td>
+<td align="right"> 20.136 </td>
+<td align="right"> 0.044 </td>
+<td align="right"> 20.168 </td>
+<td align="right"> 0.017 </td>
+<td align="right"> 20.170 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">SAC-IA-ICP</td>
+<td align="right"> 0.001 </td>
+<td align="right"> 5.927 </td>
+<td align="right"> 0.003 </td>
+<td align="right"> 5.279 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 4.795 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 6.018 </td>
+<td align="right"> 0.003 </td>
+<td align="right"> 5.433 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 4.852 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 6.478 </td>
+<td align="right"> 0.004 </td>
+<td align="right"> 5.816 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 5.215 </td>
+  </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">Gl.RANSAC</td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.078 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.555 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.867 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.274 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.468 </td>
+<td align="right"> 0.004 </td>
+<td align="right"> 2.832 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.582 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.493 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.812 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">FGR</td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.078 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.555 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.867 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.274 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.468 </td>
+<td align="right"> 0.004 </td>
+<td align="right"> 2.832 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 2.582 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.493 </td>
+<td align="right"> 0.005 </td>
+<td align="right"> 2.812 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GPIS-S2SPR</td>
+<td align="right"> 0.012 </td>
+<td align="right"> 0.501 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 0.455 </td>
+<td align="right"> 0.024 </td>
+<td align="right"> 0.391 </td>
+<td align="right"> 0.012 </td>
+<td align="right"> 0.478 </td>
+<td align="right"> 0.016 </td>
+<td align="right"> 0.444 </td>
+<td align="right"> 0.017 </td>
+<td align="right"> 0.382 </td>
+<td align="right"> 0.021 </td>
+<td align="right"> 0.499 </td>
+<td align="right"> 0.015 </td>
+<td align="right"> 0.472 </td>
+<td align="right"> 0.013 </td>
+<td align="right"> 0.395 </td>
+      </tr>
+      <tr>
+        <td  class="rotate" align="center" rowspan="7"> <div>Buddha</div></td>
+        <td style="font-size:15px;",class="headcol">PCL-ICP</td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.705 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.950 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 1.017 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.848 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.920 </td>
+<td align="right"> 0.003 </td>
+<td align="right"> 1.016 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.740 </td>
+<td align="right"> 0.002 </td>
+<td align="right"> 0.962 </td>
+<td align="right"> 0.003 </td>
+<td align="right"> 0.872 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GoICP</td>
+<td align="right"> 0.043 </td>
+<td align="right"> 21.539 </td>
+<td align="right"> 0.032 </td>
+<td align="right"> 21.401 </td>
+<td align="right"> 0.085 </td>
+<td align="right"> 21.309 </td>
+<td align="right"> 0.075 </td>
+<td align="right"> 21.380 </td>
+<td align="right"> 0.050 </td>
+<td align="right"> 21.295 </td>
+<td align="right"> 0.052 </td>
+<td align="right"> 21.341 </td>
+<td align="right"> 0.051 </td>
+<td align="right"> 21.368 </td>
+<td align="right"> 0.067 </td>
+<td align="right"> 21.474 </td>
+<td align="right"> 0.012 </td>
+<td align="right"> 21.390 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">GoICPT</td>
+<td align="right"> 0.013 </td>
+<td align="right"> 20.168 </td>
+<td align="right"> 0.025 </td>
+<td align="right"> 20.133 </td>
+<td align="right"> 0.028 </td>
+<td align="right"> 20.171 </td>
+<td align="right"> 0.016 </td>
+<td align="right"> 20.167 </td>
+<td align="right"> 0.031 </td>
+<td align="right"> 20.191 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 20.115 </td>
+<td align="right"> 0.023 </td>
+<td align="right"> 19.983 </td>
+<td align="right"> 0.031 </td>
+<td align="right"> 19.910 </td>
+<td align="right"> 0.020 </td>
+<td align="right"> 19.965 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">SAC-IA-ICP</td>
+<td align="right"> 0.001 </td>
+<td align="right"> 5.534 </td>
+<td align="right"> 0.007 </td>
+<td align="right"> 5.216 </td>
+<td align="right"> 0.009 </td>
+<td align="right"> 6.265 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 6.179 </td>
+<td align="right"> 0.014 </td>
+<td align="right"> 7.343 </td>
+<td align="right"> 0.017 </td>
+<td align="right"> 7.428 </td>
+<td align="right"> 0.001 </td>
+<td align="right"> 6.700 </td>
+<td align="right"> 0.011 </td>
+<td align="right"> 7.548 </td>
+<td align="right"> 0.015 </td>
+<td align="right"> 6.169 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;",class="headcol">Gl.RANSAC</td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 5.534 </td>
+        <td align="right"> 0.007 </td>
+        <td align="right"> 5.216 </td>
+        <td align="right"> 0.009 </td>
+        <td align="right"> 6.265 </td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 6.179 </td>
+        <td align="right"> 0.014 </td>
+        <td align="right"> 7.343 </td>
+        <td align="right"> 0.017 </td>
+        <td align="right"> 7.428 </td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 6.700 </td>
+        <td align="right"> 0.011 </td>
+        <td align="right"> 7.548 </td>
+        <td align="right"> 0.015 </td>
+        <td align="right"> 6.169 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">FGR</td>
+<td align="right"> 0.022 </td>
+<td align="right"> 0.393 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 0.363 </td>
+<td align="right"> 0.019 </td>
+<td align="right"> 0.327 </td>
+<td align="right"> 0.016 </td>
+<td align="right"> 0.397 </td>
+<td align="right"> 0.019 </td>
+<td align="right"> 0.380 </td>
+<td align="right"> 0.015 </td>
+<td align="right"> 0.323 </td>
+<td align="right"> 0.024 </td>
+<td align="right"> 0.421 </td>
+<td align="right"> 0.022 </td>
+<td align="right"> 0.393 </td>
+<td align="right"> 0.021 </td>
+<td align="right"> 0.338 </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px;" ,class="headcol">GPIS-S2SPR</td>
+        <td align="right"> 0.003 </td>
+        <td align="right"> 0.989 </td>
+        <td align="right"> 0.002 </td>
+        <td align="right"> 0.768 </td>
+        <td align="right"> 0.002 </td>
+        <td align="right"> 0.844 </td>
+        <td align="right"> 0.001 </td>
+        <td align="right"> 0.581 </td>
+        <td align="right"> 0.003 </td>
+        <td align="right"> 0.709 </td>
+        <td align="right"> 0.002 </td>
+        <td align="right"> 0.830 </td>
+        <td align="right"> 0.002 </td>
+        <td align="right"> 0.681 </td>
+        <td align="right"> 0.002 </td>
+        <td align="right"> 0.739 </td>
+        <td align="right"> 0.003 </td>
+        <td align="right"> 1.165 </td>
+      </tr>
+    </table>
+  </div>
+  <h2>Reference</h2>
+  <p>For more detailed information please have a look at our IROS paper. The reference is</p>
+  <p>Jianjie Lin, Markus Rickert, Alois Knoll. <a href="">Deep Hierarchical Rotation Invariance Learning with Exact Geometry Feature Representation for Point Cloud
+    Classification</a>, In <i>IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</i>, Las Vegas, NV, USA, Oct. 2020.</p>
+  <pre><code>@INPROCEEDINGS{lingpis2020,
+    author={Lin, Jianjie and Rickert, Markus and Knoll, Alois},
+    booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+    title={6D Pose Estimation for Flexible Production with Small Lot Sizes based on CAD Models using Gaussian Process Implicit Surfaces}, 
+    year={2020},
+    volume={},
+    number={},
+    pages={10572-10579},
+    doi={10.1109/IROS45743.2020.9341189}}
+  </code></pre>
+</body>
+
+</html>

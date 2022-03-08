@@ -1,0 +1,11 @@
+@InProceedings{lingpis2020,
+    author={Lin, Jianjie and Rickert, Markus and Knoll, Alois},
+    booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+    title={6D Pose Estimation for Flexible Production with Small Lot Sizes based on CAD Models using Gaussian Process Implicit Surfaces}, 
+    year={2020},
+    volume={},
+    number={},
+    pages={10572-10579},
+    doi={10.1109/IROS45743.2020.9341189}
+    }
+

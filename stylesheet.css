@@ -60,50 +60,13 @@ table {
 }
 tr:hover {background-color: #D6EEEE;}
 table tr:nth-child(even) {
-	background-color: #EFEFEF;
+	background-color: #f0e0e0;
 }
-
-.view {
-	margin: auto;
-	width: 600px;
-  }
-  
-  .wrapper {
-	position: relative;
-	overflow: auto;
-	border: 1px solid black;
-	white-space: nowrap;
-  }
-.sticky-col {
-	position: -webkit-sticky;
-	position: sticky;
-	background-color: white;
-  }
-.second-col {
-width: 150px;
-min-width: 150px;
-max-width: 150px;
-left: 100px;
-}
-.headcol {
-	position: absolute;
-	width: 5em;
-	left: 0;
-	top: auto;
-	border-top-width: 1px;
-	/*only relevant for first row*/
-	margin-top: -1px;
-	/*compensate for top border*/
-  }
 
 td:hover {background-color: #9999FF;}
-table th {
-	font-size: 16px;
-	font-weight: 500;	
-}
-table th, table td {
+th, td {
 	padding: 0.5em;
-	border-bottom: 2px solid #8ebf42; 
+	/*border-bottom: 2px solid #8ebf42; */
 	
 }
 .rotate {
